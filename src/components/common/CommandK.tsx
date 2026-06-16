@@ -15,7 +15,13 @@ export function CommandK({ open, onOpenChange }: CommandKProps) {
 
   return (
     <div className="modal-backdrop" role="presentation" onClick={() => onOpenChange(false)}>
-      <div className="command-panel" role="dialog" aria-modal="true" aria-label="Quick actions" onClick={(event) => event.stopPropagation()}>
+      <div
+        className="command-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Quick actions"
+        onClick={(event) => event.stopPropagation()}
+      >
         <Search size={18} aria-hidden="true" />
         <form
           onSubmit={(event) => {
@@ -31,7 +37,12 @@ export function CommandK({ open, onOpenChange }: CommandKProps) {
             onOpenChange(false);
           }}
         >
-          <input autoFocus value={value} onChange={(event) => setValue(event.target.value)} placeholder="Search titles, people, or paste a TMDB URL" />
+          <input
+            autoFocus
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+            placeholder="Search titles, people, or paste a TMDB URL"
+          />
         </form>
       </div>
     </div>

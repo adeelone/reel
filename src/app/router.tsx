@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
       { path: 'lists/:slug', element: <ListsRoute /> },
       { path: 'calendar', element: <CalendarRoute /> },
       { path: 'tonight', element: <TonightRoute /> },
-      { path: 'settings', element: <SettingsRoute /> }
-    ]
-  }
+      { path: 'settings', element: <SettingsRoute /> },
+    ],
+  },
 ]);

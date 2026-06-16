@@ -43,35 +43,66 @@ export const useLibraryStore = create<LibraryState>((set) => ({
   ratings: load().ratings ?? {},
   notes: load().notes ?? {},
   tags: load().tags ?? {},
-  toggleWatchlist: (item) => set((state) => {
-    const next = { ...state, watchlist: toggle(state.watchlist, item.id), items: { ...state.items, [item.id]: item } };
-    persist(next);
-    return next;
-  }),
-  toggleWatched: (item) => set((state) => {
-    const next = { ...state, watched: toggle(state.watched, item.id), items: { ...state.items, [item.id]: item } };
-    persist(next);
-    return next;
-  }),
-  toggleFavorite: (item) => set((state) => {
-    const next = { ...state, favorites: toggle(state.favorites, item.id), items: { ...state.items, [item.id]: item } };
-    persist(next);
-    return next;
-  }),
-  rate: (item, value) => set((state) => {
-    const next = { ...state, ratings: { ...state.ratings, [item.id]: value }, items: { ...state.items, [item.id]: item } };
-    persist(next);
-    return next;
-  }),
-  note: (id, value) => set((state) => {
-    const next = { ...state, notes: { ...state.notes, [id]: value } };
-    persist(next);
-    return next;
-  })
+  toggleWatchlist: (item) =>
+    set((state) => {
+      const next = {
+        ...state,
+        watchlist: toggle(state.watchlist, item.id),
+        items: { ...state.items, [item.id]: item },
+      };
+      persist(next);
+      return next;
+    }),
+  toggleWatched: (item) =>
+    set((state) => {
+      const next = { ...state, watched: toggle(state.watched, item.id), items: { ...state.items, [item.id]: item } };
+      persist(next);
+      return next;
+    }),
+  toggleFavorite: (item) =>
+    set((state) => {
+      const next = {
+        ...state,
+        favorites: toggle(state.favorites, item.id),
+        items: { ...state.items, [item.id]: item },
+      };
+      persist(next);
+      return next;
+    }),
+  rate: (item, value) =>
+    set((state) => {
+      const next = {
+        ...state,
+        ratings: { ...state.ratings, [item.id]: value },
+        items: { ...state.items, [item.id]: item },
+      };
+      persist(next);
+      return next;
+    }),
+  note: (id, value) =>
+    set((state) => {
+      const next = { ...state, notes: { ...state.notes, [id]: value } };
+      persist(next);
+      return next;
+    }),
 }));
 
 export function exportLibraryJson() {
   return JSON.stringify(load(), null, 2);
+}
+
+export function exportLetterboxdCsv() {
+  const state = getSnapshot();
+  const rows = ['Title,Year,Rating,WatchedDate,Review'];
+
+  Object.values(state.items ?? {}).forEach((item) => {
+    const rating = state.ratings?.[item.id] ?? '';
+    const watchedDate = state.watched?.includes(item.id) ? new Date().toISOString().slice(0, 10) : '';
+    const review = state.notes?.[item.id] ?? '';
+    rows.push([item.title, item.year, rating, watchedDate, review].map(csvCell).join(','));
+  });
+
+  return rows.join('\n');
 }
 
 export function libraryStats() {
@@ -81,7 +112,7 @@ export function libraryStats() {
     watchlist: state.watchlist?.length ?? 0,
     watched: state.watched?.length ?? 0,
     favorites: state.favorites?.length ?? 0,
-    averageRating: rated.length ? rated.reduce((sum, value) => sum + value, 0) / rated.length : 0
+    averageRating: rated.length ? rated.reduce((sum, value) => sum + value, 0) / rated.length : 0,
   };
 }
 
@@ -95,4 +126,9 @@ function getLocalStorageSnapshot() {
   } catch {
     return {};
   }
+}
+
+function csvCell(value: string | number) {
+  const text = String(value);
+  return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 }

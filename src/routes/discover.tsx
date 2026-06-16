@@ -10,7 +10,14 @@ export function DiscoverRoute() {
   const kind = (params.get('type') ?? 'movie') as MediaKind;
   const query = useQuery({
     queryKey: ['discover', params.toString()],
-    queryFn: () => tmdbMovieProvider.discover({ kind, genre: params.get('genre') ?? undefined, provider: params.get('provider') ?? undefined, sort: params.get('sort') ?? undefined, region: 'US' })
+    queryFn: () =>
+      tmdbMovieProvider.discover({
+        kind,
+        genre: params.get('genre') ?? undefined,
+        provider: params.get('provider') ?? undefined,
+        sort: params.get('sort') ?? undefined,
+        region: 'US',
+      }),
   });
 
   return (
@@ -18,7 +25,9 @@ export function DiscoverRoute() {
       <h1>Discover</h1>
       <FilterBar />
       <div className="poster-grid">
-        {(query.data ?? []).map((item) => <PosterCard key={item.id} item={item} />)}
+        {(query.data ?? []).map((item) => (
+          <PosterCard key={item.id} item={item} />
+        ))}
       </div>
     </div>
   );

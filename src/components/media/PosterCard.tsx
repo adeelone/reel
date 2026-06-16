@@ -20,14 +20,26 @@ export function PosterCard({ item }: PosterCardProps) {
         <img src={imageUrl(item.posterPath, 'w342')} alt="" loading="lazy" />
         <div className="poster-meta">
           <strong>{item.title}</strong>
-          <span>{item.year} · {item.voteAverage.toFixed(1)}</span>
+          <span>
+            {item.year} · {item.voteAverage.toFixed(1)}
+          </span>
         </div>
       </Link>
       <div className="poster-actions">
-        <button type="button" aria-label="Toggle watchlist" className={isWatchlisted ? 'active' : ''} onClick={() => toggleWatchlist(item)}>
+        <button
+          type="button"
+          aria-label="Toggle watchlist"
+          className={isWatchlisted ? 'active' : ''}
+          onClick={() => toggleWatchlist(item)}
+        >
           <Plus size={16} />
         </button>
-        <button type="button" aria-label="Toggle favorite" className={isFavorite ? 'active' : ''} onClick={() => toggleFavorite(item)}>
+        <button
+          type="button"
+          aria-label="Toggle favorite"
+          className={isFavorite ? 'active' : ''}
+          onClick={() => toggleFavorite(item)}
+        >
           <Heart size={16} />
         </button>
       </div>

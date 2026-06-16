@@ -11,7 +11,7 @@ export function SearchRoute() {
   const results = useQuery({
     queryKey: ['search', q],
     queryFn: () => tmdbSearchProvider.search(q),
-    enabled: q.trim().length > 0
+    enabled: q.trim().length > 0,
   });
 
   return (
@@ -19,11 +19,23 @@ export function SearchRoute() {
       <h1>Search</h1>
       <label className="search-box">
         <Search size={20} />
-        <input value={q} onChange={(event) => setParams(event.target.value ? { q: event.target.value } : {})} placeholder="Movies, TV, people" autoFocus />
+        <input
+          value={q}
+          onChange={(event) => setParams(event.target.value ? { q: event.target.value } : {})}
+          placeholder="Movies, TV, people"
+          autoFocus
+        />
       </label>
-      {!q ? <EmptyState title="Start with a title, actor, or mood" body="Recent searches will appear here after you search." /> : null}
+      {!q ? (
+        <EmptyState
+          title="Start with a title, actor, or mood"
+          body="Recent searches will appear here after you search."
+        />
+      ) : null}
       <div className="poster-grid">
-        {(results.data ?? []).map((item) => <PosterCard key={item.id} item={item} />)}
+        {(results.data ?? []).map((item) => (
+          <PosterCard key={item.id} item={item} />
+        ))}
       </div>
     </div>
   );

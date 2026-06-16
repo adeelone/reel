@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Reel">
+  <rect width="512" height="512" rx="96" fill="#09090b"/>
+  <path d="M128 128h256v256H128z" fill="#141418" stroke="#f59e0b" stroke-width="18"/>
+  <path d="M180 128v256M256 128v256M332 128v256M128 204h256M128 308h256" stroke="#38bdf8" stroke-width="16"/>
+  <text x="256" y="292" text-anchor="middle" font-family="Arial, sans-serif" font-size="112" font-weight="700" fill="#f4f4f5">R</text>
+</svg>

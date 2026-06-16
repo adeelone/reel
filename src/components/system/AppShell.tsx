@@ -8,7 +8,7 @@ const links = [
   { to: '/discover', label: 'Discover', icon: SlidersHorizontal },
   { to: '/search', label: 'Search', icon: Search },
   { to: '/lists', label: 'Lists', icon: Library },
-  { to: '/tonight', label: 'Tonight', icon: Sparkles }
+  { to: '/tonight', label: 'Tonight', icon: Sparkles },
 ];
 
 export function AppShell() {

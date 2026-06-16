@@ -25,14 +25,18 @@ export function FilterBar() {
         Genre
         <select value={params.get('genre') ?? ''} onChange={(event) => update('genre', event.target.value)}>
           <option value="">Any genre</option>
-          {genres.map((genre) => <option key={genre}>{genre}</option>)}
+          {genres.map((genre) => (
+            <option key={genre}>{genre}</option>
+          ))}
         </select>
       </label>
       <label>
         Provider
         <select value={params.get('provider') ?? ''} onChange={(event) => update('provider', event.target.value)}>
           <option value="">Any provider</option>
-          {providers.map((provider) => <option key={provider}>{provider}</option>)}
+          {providers.map((provider) => (
+            <option key={provider}>{provider}</option>
+          ))}
         </select>
       </label>
       <label>

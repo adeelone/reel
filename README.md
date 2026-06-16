@@ -60,7 +60,7 @@ npm run test:e2e
 - The first release is an SPA, not a Next.js app, so backend sync is represented by interfaces and documentation rather than a live server.
 - Anonymous mode is the default. Account sync is behind `VITE_SYNC_ENABLED`.
 - TMDB watch providers are the default streaming source. JustWatch can be added behind the same `WatchProvider` interface.
-- Fixture data is intentionally included so CI and local demos work without live network access.
+- Fixture data is included so CI and local runs work without live network access.
 - `npm` is used in scripts and CI because this workstation does not currently expose `pnpm`; `packageManager` still pins the intended pnpm version.
 
 ## Deployment
@@ -88,7 +88,7 @@ Providers live behind interfaces in `src/data/providers/contracts.ts`. To add or
 
 ## Known Limitations
 
-- Live TMDB credits, videos, watch providers, and configuration are partially stubbed in the first release.
+- Live TMDB credits, videos, watch providers, and keywords are wired for detail pages; configuration caching is still minimal.
 - IndexedDB persistence is represented by the repo layer contract; the current implementation uses localStorage for the initial build.
 - Supabase account sync is documented but not wired to live tables.
-- Native app via Capacitor, watch-party rooms, co-watching presence, embedding-based recommendations, social graph picks, and a Year in Review page are future work.
+- Native app via Capacitor, watch-party rooms, co-watching presence, embedding-based recommendations, social graph picks, and a Year in Review page are not in this release.

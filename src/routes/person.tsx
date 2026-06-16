@@ -6,7 +6,12 @@ import { tmdbPersonProvider } from '../data/providers/tmdb';
 export function PersonRoute() {
   const { id = 'p1' } = useParams();
   const person = useQuery({ queryKey: ['person', id], queryFn: () => tmdbPersonProvider.detail(id) });
-  if (!person.data) return <div className="page"><h1>Loading person</h1></div>;
+  if (!person.data)
+    return (
+      <div className="page">
+        <h1>Loading person</h1>
+      </div>
+    );
   return (
     <div className="page">
       <h1>{person.data.name}</h1>

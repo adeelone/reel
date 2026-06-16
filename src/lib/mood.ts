@@ -9,7 +9,7 @@ const moodWeights: Record<string, string[]> = {
   nostalgic: ['Adventure', 'Family'],
   short: ['Comedy'],
   long: ['Drama'],
-  'kid-friendly': ['Animation', 'Family']
+  'kid-friendly': ['Animation', 'Family'],
 };
 
 export function scoreForMood(item: MediaSummary, moods: string[]) {
