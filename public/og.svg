@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#09090b"/>
+  <rect x="86" y="86" width="1028" height="458" rx="24" fill="#141418" stroke="#2f3037"/>
+  <text x="138" y="270" fill="#f59e0b" font-family="Arial, sans-serif" font-size="42" font-weight="700">REEL</text>
+  <text x="138" y="350" fill="#f4f4f5" font-family="Arial, sans-serif" font-size="66" font-weight="700">Movie and TV library</text>
+  <text x="138" y="420" fill="#a1a1aa" font-family="Arial, sans-serif" font-size="30">Discover, track, rate, and pick what to watch tonight.</text>
+</svg>

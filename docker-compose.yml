@@ -1,0 +1,7 @@
+services:
+  reel:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      - VITE_SYNC_ENABLED=false
