@@ -6,9 +6,9 @@ Status date: 2026-06-16
 
 ## Summary
 
-- PASS: 26
+- PASS: 27
 - PARTIAL: 25
-- FAIL: 1
+- FAIL: 0
 
 The app is a working Vite/React implementation with real TMDB provider calls, local library state, core routes, tests, CI, release, and GitHub publishing. The remaining gaps are larger product work: full account auth, custom list editing, full IndexedDB persistence, richer provider integrations, complete accessibility/i18n coverage, and externally verified Lighthouse targets.
 
@@ -57,7 +57,7 @@ The app is a working Vite/React implementation with real TMDB provider calls, lo
 | Default branch main                                       | PASS    | `main` is the default branch and local branch tracks `origin/main`.                                                                                                                                    |
 | Tag and release                                           | PASS    | `v0.1.0` release exists.                                                                                                                                                                               |
 | Branch protection                                         | PASS    | `main` protection was configured after publish.                                                                                                                                                        |
-| Discussions announcement                                  | FAIL    | Discussion category lookup returned 404 through the available GitHub API path.                                                                                                                         |
+| Discussions announcement                                  | PASS    | Announcement discussion was created at `https://github.com/adeelone/reel/discussions/13`.                                                                                                              |
 | Social preview `public/og.png`                            | PASS    | `public/og.png` is present for social preview use.                                                                                                                                                     |
 | Lighthouse targets                                        | PARTIAL | Production build is verified and Lighthouse CLI is available, but the local preview server hung before a browser audit could complete.                                                                 |
 
