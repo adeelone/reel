@@ -22,7 +22,7 @@ It is built as a Vite + React 18 + TypeScript app with React Router, TanStack Qu
 - Zustand for local library/session state.
 - CSS variables with a dark-first visual system; Tailwind is included for teams that want to migrate token utilities later.
 - Vitest + Testing Library for unit/component tests and Playwright for browser flows.
-- Supabase sync is documented and feature-flagged, but not enabled by default.
+- Supabase sync is feature-flagged and uses a small REST adapter for library snapshots.
 
 ## Quickstart
 
@@ -57,7 +57,7 @@ npm run test:e2e
 
 ## Assumptions
 
-- The first release is an SPA, not a Next.js app, so backend sync is represented by interfaces and documentation rather than a live server.
+- The first release is an SPA, not a Next.js app, so sync uses Supabase REST directly when configured.
 - Anonymous mode is the default. Account sync is behind `VITE_SYNC_ENABLED`.
 - TMDB watch providers are the default streaming source. JustWatch can be added behind the same `WatchProvider` interface.
 - Fixture data is included so CI and local runs work without live network access.
@@ -90,5 +90,5 @@ Providers live behind interfaces in `src/data/providers/contracts.ts`. To add or
 
 - Live TMDB credits, videos, watch providers, and keywords are wired for detail pages; configuration caching is still minimal.
 - IndexedDB persistence is represented by the repo layer contract; the current implementation uses localStorage for the initial build.
-- Supabase account sync is documented but not wired to live tables.
+- Supabase account sync expects a `library_snapshots` table with `user_id`, `payload`, and `updated_at` columns.
 - Native app via Capacitor, watch-party rooms, co-watching presence, embedding-based recommendations, social graph picks, and a Year in Review page are not in this release.

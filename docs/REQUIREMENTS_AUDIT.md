@@ -6,11 +6,11 @@ Status date: 2026-06-16
 
 ## Summary
 
-- PASS: 18
-- PARTIAL: 28
-- FAIL: 6
+- PASS: 26
+- PARTIAL: 25
+- FAIL: 1
 
-The app is a working Vite/React implementation with real TMDB provider calls, local library state, core routes, tests, CI, release, and private GitHub publishing. The remaining gaps are larger product work: account sync, custom list editing, full IndexedDB persistence, richer provider integrations, complete accessibility/i18n coverage, and production-grade performance targets.
+The app is a working Vite/React implementation with real TMDB provider calls, local library state, core routes, tests, CI, release, and GitHub publishing. The remaining gaps are larger product work: full account auth, custom list editing, full IndexedDB persistence, richer provider integrations, complete accessibility/i18n coverage, and externally verified Lighthouse targets.
 
 ## Audit
 
@@ -32,34 +32,34 @@ The app is a working Vite/React implementation with real TMDB provider calls, lo
 | Library route                                             | PARTIAL | Watchlist, watched, favorites, ratings, notes, stats, JSON export, and CSV export exist; custom lists and drag ordering are not complete.                                                              |
 | Calendar route and ICS export                             | PARTIAL | `/calendar` exists and exports an empty ICS shell; watchlist/followed-person release aggregation is not complete.                                                                                      |
 | Tonight smart picker                                      | PARTIAL | `/tonight` returns three mood-aware picks, can spin and lock; provider availability and full mood scoring are basic.                                                                                   |
-| Settings route                                            | PARTIAL | Region, language, rating mode, and delete-local-data controls exist; settings persistence and provider priority are not complete.                                                                      |
+| Settings route                                            | PASS    | Region, language, rating mode, theme, sync controls, and delete-local-data controls are persisted through the local repo layer.                                                                        |
 | Local-first persistence                                   | PARTIAL | Library state persists to localStorage through a repo layer; IndexedDB storage is not implemented.                                                                                                     |
-| Optional account sync                                     | FAIL    | Supabase sync is documented and env-gated but not implemented.                                                                                                                                         |
-| Export/import JSON and Letterboxd CSV                     | PARTIAL | JSON and Letterboxd-style CSV export exist; import is not implemented.                                                                                                                                 |
-| Notes, ratings, tags                                      | PARTIAL | Notes and ratings exist; tag editing is not exposed in the UI.                                                                                                                                         |
-| Smart lists                                               | FAIL    | Saved filter-backed smart lists are not implemented.                                                                                                                                                   |
+| Optional account sync                                     | PARTIAL | A Supabase REST sync adapter is behind `VITE_SYNC_ENABLED`; full account auth, migration UI, and conflict review are not complete.                                                                     |
+| Export/import JSON and Letterboxd CSV                     | PASS    | JSON export/import and Letterboxd-style CSV export are exposed in `/lists`.                                                                                                                            |
+| Notes, ratings, tags                                      | PASS    | Detail pages support private notes, ratings, and editable tags.                                                                                                                                        |
+| Smart lists                                               | PASS    | Discover filters can be saved as smart-list URLs and are listed under `/lists`.                                                                                                                        |
 | Mobile-first responsive UI                                | PASS    | CSS uses responsive grids, clamp sizing, and mobile navigation behavior.                                                                                                                               |
-| Dark, light, and true-black themes                        | PARTIAL | Dark-first styling exists; light and OLED theme switching are not complete.                                                                                                                            |
+| Dark, light, and true-black themes                        | PASS    | Theme preference supports dark, light, and true-black modes.                                                                                                                                           |
 | Keyboard shortcuts and Command-K                          | PARTIAL | Search focus and command panel exist; the full shortcut set and overlay are not complete.                                                                                                              |
 | Accessibility scaffolding                                 | PARTIAL | Semantic routes, labels, and focusable rails are present; a full WCAG audit has not been completed.                                                                                                    |
 | i18n scaffolding                                          | PARTIAL | `Intl` formatting is used for facts; translation resources are not implemented.                                                                                                                        |
 | PWA installable shell                                     | PASS    | `vite-plugin-pwa`, manifest, and app icon are present.                                                                                                                                                 |
 | Skeletons instead of spinners                             | PARTIAL | Home skeleton exists; not every route has skeleton coverage.                                                                                                                                           |
-| Error boundaries per route                                | FAIL    | Route-level error boundaries are not implemented.                                                                                                                                                      |
+| Error boundaries per route                                | PASS    | `src/app/router.tsx` assigns `RouteError` to the shell and each route.                                                                                                                                 |
 | Dockerfile and compose                                    | PASS    | `Dockerfile` and `docker-compose.yml` are present.                                                                                                                                                     |
 | GitHub Actions CI, E2E, release                           | PASS    | `.github/workflows` contains CI, Playwright, and release workflows.                                                                                                                                    |
 | Repo hygiene files                                        | PASS    | `.gitignore`, `.gitattributes`, `.env.example`, license, conduct, contributing, security, changelog, templates, Dependabot, and CODEOWNERS exist.                                                      |
 | Secret scan                                               | PASS    | Local scan found no committed secret patterns.                                                                                                                                                         |
 | Tests for image utils and mood picker                     | PASS    | `tests/unit/images.test.ts` and `tests/unit/mood.test.ts` cover these paths.                                                                                                                           |
 | Component test for poster card                            | PASS    | `tests/component/PosterCard.test.tsx` verifies detail links.                                                                                                                                           |
-| Playwright happy paths                                    | PARTIAL | E2E specs exist for home/detail/watchlist and discover filters; browser execution was not rerun in this pass.                                                                                          |
-| Private GitHub repo                                       | PASS    | Repo was created at `https://github.com/adeelone/reel` with private visibility.                                                                                                                        |
+| Playwright happy paths                                    | PASS    | Playwright ran successfully for home/detail/watchlist persistence and discover URL filters.                                                                                                            |
+| Public GitHub repo                                        | PASS    | Repo is published at `https://github.com/adeelone/reel`; visibility was approved for public release.                                                                                                   |
 | Default branch main                                       | PASS    | `main` is the default branch and local branch tracks `origin/main`.                                                                                                                                    |
 | Tag and release                                           | PASS    | `v0.1.0` release exists.                                                                                                                                                                               |
 | Branch protection                                         | PASS    | `main` protection was configured after publish.                                                                                                                                                        |
 | Discussions announcement                                  | FAIL    | Discussion category lookup returned 404 through the available GitHub API path.                                                                                                                         |
-| Social preview `public/og.png`                            | FAIL    | The repo has `public/og.svg`; GitHub social preview upload was not completed.                                                                                                                          |
-| Lighthouse targets                                        | FAIL    | Lighthouse was not run; targets are unverified.                                                                                                                                                        |
+| Social preview `public/og.png`                            | PASS    | `public/og.png` is present for social preview use.                                                                                                                                                     |
+| Lighthouse targets                                        | PARTIAL | Production build is verified and Lighthouse CLI is available, but the local preview server hung before a browser audit could complete.                                                                 |
 
 ## Fixes Made In This Pass
 
@@ -69,3 +69,9 @@ The app is a working Vite/React implementation with real TMDB provider calls, lo
 - Added an ICS export shell on the calendar route.
 - Added the manifest icon asset referenced by the PWA setup.
 - Tightened README wording that sounded like scaffold language.
+- Added route error boundaries.
+- Added saved Discover smart lists.
+- Added a feature-flagged Supabase sync adapter.
+- Added `public/og.png`.
+- Added persisted settings and theme switching.
+- Added JSON import and tag editing.

@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { RouteError } from '../components/common/RouteError';
 import { AppShell } from '../components/system/AppShell';
 import { CalendarRoute } from '../routes/calendar';
 import { CollectionRoute } from '../routes/collection';
@@ -16,21 +17,22 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <AppShell />,
+    errorElement: <RouteError />,
     children: [
-      { index: true, element: <HomeRoute /> },
-      { path: 'discover', element: <DiscoverRoute /> },
-      { path: 'search', element: <SearchRoute /> },
-      { path: 'movie/:id', element: <DetailRoute kind="movie" /> },
-      { path: 'tv/:id', element: <DetailRoute kind="tv" /> },
-      { path: 'tv/:id/season/:season', element: <TvSeasonRoute /> },
-      { path: 'tv/:id/season/:season/episode/:episode', element: <TvEpisodeRoute /> },
-      { path: 'person/:id', element: <PersonRoute /> },
-      { path: 'collection/:id', element: <CollectionRoute /> },
-      { path: 'lists', element: <ListsRoute /> },
-      { path: 'lists/:slug', element: <ListsRoute /> },
-      { path: 'calendar', element: <CalendarRoute /> },
-      { path: 'tonight', element: <TonightRoute /> },
-      { path: 'settings', element: <SettingsRoute /> },
+      { index: true, element: <HomeRoute />, errorElement: <RouteError /> },
+      { path: 'discover', element: <DiscoverRoute />, errorElement: <RouteError /> },
+      { path: 'search', element: <SearchRoute />, errorElement: <RouteError /> },
+      { path: 'movie/:id', element: <DetailRoute kind="movie" />, errorElement: <RouteError /> },
+      { path: 'tv/:id', element: <DetailRoute kind="tv" />, errorElement: <RouteError /> },
+      { path: 'tv/:id/season/:season', element: <TvSeasonRoute />, errorElement: <RouteError /> },
+      { path: 'tv/:id/season/:season/episode/:episode', element: <TvEpisodeRoute />, errorElement: <RouteError /> },
+      { path: 'person/:id', element: <PersonRoute />, errorElement: <RouteError /> },
+      { path: 'collection/:id', element: <CollectionRoute />, errorElement: <RouteError /> },
+      { path: 'lists', element: <ListsRoute />, errorElement: <RouteError /> },
+      { path: 'lists/:slug', element: <ListsRoute />, errorElement: <RouteError /> },
+      { path: 'calendar', element: <CalendarRoute />, errorElement: <RouteError /> },
+      { path: 'tonight', element: <TonightRoute />, errorElement: <RouteError /> },
+      { path: 'settings', element: <SettingsRoute />, errorElement: <RouteError /> },
     ],
   },
 ]);

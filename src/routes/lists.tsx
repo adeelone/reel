@@ -1,6 +1,13 @@
-import { Download } from 'lucide-react';
+import { Download, Trash2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { PosterCard } from '../components/media/PosterCard';
-import { exportLetterboxdCsv, exportLibraryJson, libraryStats, useLibraryStore } from '../data/repo/libraryStore';
+import {
+  exportLetterboxdCsv,
+  exportLibraryJson,
+  importLibraryJson,
+  libraryStats,
+  useLibraryStore,
+} from '../data/repo/libraryStore';
 
 export function ListsRoute() {
   const state = useLibraryStore();
@@ -21,6 +28,18 @@ export function ListsRoute() {
           <button type="button" onClick={() => copyExport(exportLetterboxdCsv())}>
             <Download size={18} /> CSV
           </button>
+          <label className="file-button">
+            Import JSON
+            <input
+              type="file"
+              accept="application/json"
+              onChange={async (event) => {
+                const file = event.currentTarget.files?.[0];
+                if (file) importLibraryJson(await file.text());
+                event.currentTarget.value = '';
+              }}
+            />
+          </label>
         </div>
       </div>
       <section className="stats-panel">
@@ -29,6 +48,18 @@ export function ListsRoute() {
         <span>{stats.favorites} favorites</span>
         <span>{stats.averageRating.toFixed(1)} avg rating</span>
       </section>
+      <h2>Smart lists</h2>
+      <div className="list-grid">
+        {state.smartLists.map((list) => (
+          <article className="list-card" key={list.id}>
+            <Link to={list.href}>{list.title}</Link>
+            <small>{new Intl.DateTimeFormat('en-US').format(new Date(list.createdAt))}</small>
+            <button type="button" onClick={() => state.removeSmartList(list.id)} aria-label={`Remove ${list.title}`}>
+              <Trash2 size={16} /> Remove
+            </button>
+          </article>
+        ))}
+      </div>
       <h2>Watchlist</h2>
       <div className="poster-grid">
         {watchlist.map((item) => (

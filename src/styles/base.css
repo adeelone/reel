@@ -10,6 +10,9 @@
     sans-serif;
   background: #09090b;
   color: #f4f4f5;
+  --body-bg: #09090b;
+  --input-bg: #0f1013;
+  --text: #f4f4f5;
   --panel: #141418;
   --panel-soft: #1e1f24;
   --line: #2f3037;
@@ -19,6 +22,28 @@
   --danger: #fb7185;
 }
 
+:root[data-theme='light'] {
+  color-scheme: light;
+  background: #f7f7f8;
+  color: #18181b;
+  --body-bg: #f7f7f8;
+  --input-bg: #ffffff;
+  --text: #18181b;
+  --panel: #ffffff;
+  --panel-soft: #eceef2;
+  --line: #d4d4d8;
+  --muted: #52525b;
+}
+
+:root[data-theme='true-black'] {
+  background: #000;
+  --body-bg: #000;
+  --input-bg: #050505;
+  --panel: #080808;
+  --panel-soft: #121212;
+  --line: #27272a;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -26,7 +51,7 @@
 body {
   margin: 0;
   min-width: 320px;
-  background: #09090b;
+  background: var(--body-bg, #09090b);
 }
 
 a {
@@ -42,17 +67,22 @@ textarea {
 }
 
 button,
-.button {
+.button,
+.file-button {
   align-items: center;
   background: var(--panel-soft);
   border: 1px solid var(--line);
   border-radius: 8px;
-  color: #f4f4f5;
+  color: var(--text);
   cursor: pointer;
   display: inline-flex;
   gap: 0.5rem;
   min-height: 40px;
   padding: 0.55rem 0.85rem;
+}
+
+.file-button input {
+  display: none;
 }
 
 button:hover,
@@ -305,6 +335,22 @@ small {
   padding: 1rem;
 }
 
+.settings-panel,
+.list-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.list-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
 label {
   color: var(--muted);
   display: grid;
@@ -314,10 +360,10 @@ label {
 select,
 input,
 textarea {
-  background: #0f1013;
+  background: var(--input-bg);
   border: 1px solid var(--line);
   border-radius: 8px;
-  color: #fff;
+  color: var(--text);
   min-height: 42px;
   padding: 0.65rem 0.75rem;
 }
@@ -368,7 +414,7 @@ textarea {
   background: var(--panel-soft);
   border: 1px solid var(--line);
   border-radius: 999px;
-  color: #f4f4f5;
+  color: var(--text);
   padding: 0.42rem 0.7rem;
 }
 

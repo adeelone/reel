@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Heart, ListPlus, Share2, TicketCheck } from 'lucide-react';
+import { FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import { RatingControl } from '../components/common/RatingControl';
 import { MediaRail } from '../components/media/MediaRail';
@@ -21,8 +22,10 @@ export function DetailRoute({ kind }: { kind: MediaKind }) {
   const toggleWatched = useLibraryStore((state) => state.toggleWatched);
   const rate = useLibraryStore((state) => state.rate);
   const note = useLibraryStore((state) => state.note);
+  const tag = useLibraryStore((state) => state.tag);
   const rating = useLibraryStore((state) => state.ratings[id] ?? 0);
   const privateNote = useLibraryStore((state) => state.notes[id] ?? '');
+  const tags = useLibraryStore((state) => state.tags[id] ?? []);
 
   if (!item)
     return (
@@ -111,6 +114,39 @@ export function DetailRoute({ kind }: { kind: MediaKind }) {
               placeholder="Markdown notes stay private."
             />
           </label>
+          <form
+            className="tag-editor"
+            onSubmit={(event: FormEvent<HTMLFormElement>) => {
+              event.preventDefault();
+              const data = new FormData(event.currentTarget);
+              const value = String(data.get('tag') ?? '').trim();
+              if (!value) return;
+              tag(item.id, [...new Set([...tags, value])]);
+              event.currentTarget.reset();
+            }}
+          >
+            <label>
+              Tags
+              <span className="chip-row">
+                {tags.map((entry) => (
+                  <button
+                    className="chip"
+                    key={entry}
+                    type="button"
+                    onClick={() =>
+                      tag(
+                        item.id,
+                        tags.filter((current) => current !== entry),
+                      )
+                    }
+                  >
+                    {entry}
+                  </button>
+                ))}
+              </span>
+              <input name="tag" placeholder="Add a tag" />
+            </label>
+          </form>
           <h2>Facts</h2>
           <dl className="facts">
             <dt>Status</dt>

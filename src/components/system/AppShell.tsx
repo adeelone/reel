@@ -1,7 +1,8 @@
-import { Film, Library, Moon, Search, Sparkles, SlidersHorizontal } from 'lucide-react';
+import { Film, Library, Moon, Search, Sparkles, SlidersHorizontal, Sun } from 'lucide-react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { CommandK } from '../common/CommandK';
+import { useLibraryStore } from '../../data/repo/libraryStore';
 
 const links = [
   { to: '/', label: 'Home', icon: Film },
@@ -13,7 +14,13 @@ const links = [
 
 export function AppShell() {
   const [commandOpen, setCommandOpen] = useState(false);
+  const theme = useLibraryStore((state) => state.preferences.theme);
+  const updatePreferences = useLibraryStore((state) => state.updatePreferences);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -51,8 +58,17 @@ export function AppShell() {
             </NavLink>
           ))}
         </nav>
-        <button className="icon-button" type="button" aria-label="Toggle theme">
-          <Moon size={18} />
+        <button
+          className="icon-button"
+          type="button"
+          aria-label="Toggle theme"
+          onClick={() =>
+            updatePreferences({
+              theme: theme === 'dark' ? 'light' : theme === 'light' ? 'true-black' : 'dark',
+            })
+          }
+        >
+          {theme === 'light' ? <Sun size={18} /> : <Moon size={18} />}
         </button>
       </header>
       <main className="main-content">
